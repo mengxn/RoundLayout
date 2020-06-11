@@ -16,15 +16,15 @@ implementation 'me.codego.view:round-layout:1.0@aar'
 <me.codego.view.RoundLayout
         android:id="@+id/first_layout"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:layout_marginStart="15dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginEnd="15dp"
+        android:layout_height="wrap_content"
         android:background="#E6E6E6"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:round_radius="10dp">
+        app:round_stroke_color="#f00"
+        app:round_stroke_width="2dp"
+        app:round_radius="10dp"
+        app:round_topLeftRadius="10dp"
+        app:round_topRightRadius="10dp"
+        app:round_bottomLeftRadius="10dp"
+        app:round_bottomRightRadius="10dp">
 
 </me.codego.view.RoundLayout>
 ```
