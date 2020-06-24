@@ -8,7 +8,7 @@
 
 1. 引入第三方库
 ```gradle
-implementation 'me.codego.view:round-layout:1.0@aar'
+implementation 'me.codego.view:round-layout:1.0.1'
 ```
 
 2. 插入控件
