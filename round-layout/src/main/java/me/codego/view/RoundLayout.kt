@@ -11,11 +11,10 @@ import me.codego.roundlayout.R
  * @author mengxn
  * @date 2020/6/10
  */
-open class RoundLayout(context: Context, attributeSet: AttributeSet? = null) : ConstraintLayout(context, attributeSet) {
+class RoundLayout(context: Context, attributeSet: AttributeSet? = null) : ConstraintLayout(context, attributeSet) {
 
     private val mRadii = floatArrayOf(0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f)
     private var mClipPath: Path = Path()
-
     private var mStrokeWidth = 0f
     private var mStrokeColor = 0
     private val mPathPaint by lazy {
@@ -65,7 +64,6 @@ open class RoundLayout(context: Context, attributeSet: AttributeSet? = null) : C
                 else -> {
                 }
             }
-
         }
         typedArray.recycle()
         if (shouldDrawStroke()) {
@@ -73,8 +71,8 @@ open class RoundLayout(context: Context, attributeSet: AttributeSet? = null) : C
         }
     }
 
-    override fun draw(canvas: Canvas?) {
-        canvas?.apply {
+    override fun draw(canvas: Canvas) {
+        canvas.apply {
             save()
             clipPath(mClipPath)
             super.draw(this)
@@ -85,12 +83,37 @@ open class RoundLayout(context: Context, attributeSet: AttributeSet? = null) : C
         }
     }
 
+    private fun shouldDrawStroke() = mStrokeWidth > 0
+
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
         super.onSizeChanged(w, h, oldw, oldh)
-        mClipPath.reset()
-        mClipPath.addRoundRect(RectF(0f, 0f, w.toFloat(), h.toFloat()), mRadii, Path.Direction.CW)
+        resetClipPath()
     }
 
-    private fun shouldDrawStroke() = mStrokeWidth > 0
+    fun setRadius(topLeftRadius: Float, topRightRadius: Float, bottomLeftRadius: Float, bottomRightRadius: Float) {
+        mRadii[0] = topLeftRadius
+        mRadii[1] = topLeftRadius
+        mRadii[2] = topRightRadius
+        mRadii[3] = topRightRadius
+        mRadii[4] = bottomLeftRadius
+        mRadii[5] = bottomLeftRadius
+        mRadii[6] = bottomRightRadius
+        mRadii[7] = bottomRightRadius
+
+        resetClipPath()
+
+        postInvalidate()
+    }
+
+    private fun resetClipPath() {
+        mClipPath.apply {
+            reset()
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+                addRoundRect(0f, 0f, width.toFloat(), height.toFloat(), mRadii, Path.Direction.CW)
+            } else {
+                addRoundRect(RectF(0f, 0f, width.toFloat(), height.toFloat()), mRadii, Path.Direction.CW)
+            }
+        }
+    }
 
 }
