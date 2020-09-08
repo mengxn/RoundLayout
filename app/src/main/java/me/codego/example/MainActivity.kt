@@ -1,5 +1,6 @@
 package me.codego.example
 
+import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import me.codego.example.databinding.ActivityMainBinding
@@ -15,6 +16,7 @@ class MainActivity : AppCompatActivity() {
 
         mViewBinding.firstLayout.setOnClickListener {
             mViewBinding.firstLayout.setRadius(70f, 70f, 70f, 70f)
+            mViewBinding.firstLayout.setStroke(Color.RED, 10f)
         }
     }
 }

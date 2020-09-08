@@ -90,6 +90,9 @@ class RoundLayout(context: Context, attributeSet: AttributeSet? = null) : Constr
         resetClipPath()
     }
 
+    /**
+     * 修改圆角大小
+     */
     fun setRadius(topLeftRadius: Float, topRightRadius: Float, bottomLeftRadius: Float, bottomRightRadius: Float) {
         mRadii[0] = topLeftRadius
         mRadii[1] = topLeftRadius
@@ -114,6 +117,34 @@ class RoundLayout(context: Context, attributeSet: AttributeSet? = null) : Constr
                 addRoundRect(RectF(0f, 0f, width.toFloat(), height.toFloat()), mRadii, Path.Direction.CW)
             }
         }
+    }
+
+    /**
+     * 修改描边宽度
+     */
+    fun setStrokeWidth(width: Float) {
+        mStrokeWidth = width
+
+        postInvalidate()
+    }
+
+    /**
+     * 修改描边颜色
+     */
+    fun setStrokeColor(color: Int) {
+        mStrokeColor = color
+
+        postInvalidate()
+    }
+
+    /**
+     * 修改描边
+     */
+    fun setStroke(color: Int, width: Float) {
+        mStrokeWidth = width
+        mStrokeColor = color
+
+        postInvalidate()
     }
 
 }
